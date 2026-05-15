@@ -172,7 +172,7 @@ Registra una nueva inscripción de rodeo con los siguientes datos:
   - Nombre del caballo
   - Club de origen
   - Código del caballo (opcional, numérico)
-- **Fecha de registro** (automática)
+- **Fecha de registro** (automática, tipo ISODate)
 - **Estado** (por defecto: "Pendiente")
 
 > 🔄 Soporta inserción múltiple (`insertMany`) si se agregan varias inscripciones seguidas.
@@ -182,14 +182,22 @@ Registra una nueva inscripción de rodeo con los siguientes datos:
 | Función | Operador MongoDB | Descripción |
 |---------|-----------------|-------------|
 | Listar todos | `find()` con proyección | Muestra club, criadero, fecha y estado |
-| Operadores de comparación | `$ne`, `$lt` | Excluye estado o filtra caballos por código menor a 170000 |
-| Expresión regular | `$regex` | Búsqueda insensible a mayúsculas en criaderos |
+| Operadores de comparación | `$ne`, `$lt` | Excluye estado o filtra caballos con código menor a 140000 |
+| Expresión regular | `$regex` | Búsqueda insensible a mayúsculas en criadero, jinete o caballo |
 | Rango de fechas | `$gte`, `$lte` | Filtra inscripciones entre dos fechas |
 | Subdocumento | dot notation + `$regex` | Busca contactos por nombre |
 
+#### 🔍 Búsqueda con `$regex` (multi-campo)
+
+Permite buscar por:
+- **Criadero**: filtra inscripciones cuyo criadero coincida con el texto
+- **Jinete**: busca dentro del array de binomios por nombre del jinete
+- **Caballo**: busca dentro del array de binomios por nombre del caballo
+- **Todos los campos**: usa el operador `$or` para buscar simultáneamente en criadero, jinete y caballo
+
 #### 🔍 Búsqueda de caballos por código (`$lt`)
 
-Esta consulta permite identificar caballos registrados con código menor a **170000**, lo que indica caballos con más de **20 años de antigüedad** en el registro. Se busca dentro del array de binomios y muestra el nombre del caballo, su código, el jinete y el club organizador.
+Esta consulta permite identificar caballos registrados con código menor a **140000**, lo que indica caballos con más de **20 años de antigüedad** en el registro. Se busca dentro del array de binomios y muestra el nombre del caballo, su código, el jinete y el club organizador.
 
 ### 3. Update — Actualizaciones
 
@@ -214,7 +222,7 @@ Genera un archivo `Planilla_Oficial_Rodeo.xlsx` con todos los registros de la co
   "contacto": {
     "nombre": "Juan Pérez",
     "fono": "+56912345678",
-    "email": "juan.perez@email.com"
+    "email": "juan.perez@losandes.cl"
   },
   "criadero": "Criadero El Volcán",
   "serie": "Novicios",
@@ -257,7 +265,3 @@ Genera un archivo `Planilla_Oficial_Rodeo.xlsx` con todos los registros de la co
 ## 📜 Licencia
 
 Proyecto académico desarrollado para fines educativos en INACAP.
-
----
-
-> 🐎 *"El rodeo no es solo deporte, es tradición."*
