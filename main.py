@@ -118,14 +118,13 @@ def listar_y_exportar():
             exportar_excel()
     else:
         print("❌ No hay registros disponibles.")
-
 def buscar_avanzada_operadores():
-    """Búsqueda con $ne y $in"""
+    """Búsqueda con $ne y $lt"""
     print("\n╔════════════════════════════════════════╗")
-    print("║     BÚSQUEDA CON OPERADORES ($ne/$in)  ║")
+    print("║     BÚSQUEDA CON OPERADORES ($ne/$lt)  ║")
     print("╚════════════════════════════════════════╝\n")
     print("1. Buscar por estado distinto ($ne)")
-    print("2. Buscar por lista de clubes ($in)")
+    print("2. Buscar caballos con código < 170000 (más de 20 años) ($lt)")
     print("0. Volver\n")
     
     op = input("Opción: ").strip()
@@ -136,10 +135,18 @@ def buscar_avanzada_operadores():
             print(f"📍 Club: {doc['club_organizador']} | Estado: {doc['estado']}")
             
     elif op == "2":
-        clubes_input = input("\nClubes separados por coma: ").strip()
-        clubes = [c.strip() for c in clubes_input.split(",")]
-        for doc in coleccion.find({"club_organizador": {"$in": clubes}}):
-            print(f"📍 Encontrado: {doc['club_organizador']}")
+        print("\n--- Caballos con código < 170000 (más de 20 años) ---")
+        resultados = coleccion.find({"binomios.cod_caballo": {"$lt": 170000}})
+        
+        encontrados = False
+        for doc in resultados:
+            for binomio in doc.get("binomios", []):
+                if binomio.get("cod_caballo") and binomio["cod_caballo"] < 170000:
+                    print(f"📍 Caballo: {binomio['caballo']} | Código: {binomio['cod_caballo']} | Jinete: {binomio['jinete']} | Club: {doc['club_organizador']}")
+                    encontrados = True
+        
+        if not encontrados:
+            print("❌ No se encontraron caballos con código menor a 170000.")
 
 def buscar_por_nombre_regex():
     """Búsqueda con expresión regular"""
@@ -260,7 +267,7 @@ def menu_busqueda():
         print("║          MENÚ DE BÚSQUEDAS             ║")
         print("╠════════════════════════════════════════╣")
         print("║ 1. Listar todos (proyección)           ║")
-        print("║ 2. Operadores comparación ($ne/$in)    ║")
+        print("║ 2. Operadores comparación ($ne/$lt)    ║")
         print("║ 3. Expresión regular ($regex)          ║")
         print("║ 4. Rango de fechas ($gte/$lte)         ║")
         print("║ 5. Buscar en subdocumento (contacto)   ║")
