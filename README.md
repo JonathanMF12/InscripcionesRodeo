@@ -61,8 +61,8 @@ Antes de comenzar, asegúrate de tener instalado:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/sistema-gestion-rodeos.git
-cd sistema-gestion-rodeos
+git clone https://github.com/JonathanMF12/InscripcionesRodeo
+cd InscripcionesRodeo
 ```
 
 ### 2. Crear entorno virtual (recomendado)
@@ -127,7 +127,7 @@ python main.py
 
 ```
 ╔════════════════════════════════════════╗
-║   SISTEMA DE GESTIÓN DE RODEOS 🐎      ║
+║      SISTEMA DE GESTIÓN DE RODEOS      ║
 ╠════════════════════════════════════════╣
 ║ 1. Crear inscripción                   ║
 ║ 2. Buscar/Consultar                    ║
@@ -236,8 +236,8 @@ Genera un archivo `Planilla_Oficial_Rodeo.xlsx` con todos los registros de la co
 
 ## 👥 Autores
 
-- **Integrante 1** — [GitHub](https://github.com/usuario1)
-- **Integrante 2** — [GitHub](https://github.com/usuario2)
+- **Integrante 1** — [GitHub](https://github.com/JonathanMF12)
+- **Integrante 2** — [GitHub](https://github.com/ketudev)
 
 **Docente:** Michael Arjel Mayerovich  
 **Asignatura:** TI3V32 — Bases de Datos No Estructuradas  
@@ -251,6 +251,3 @@ Genera un archivo `Planilla_Oficial_Rodeo.xlsx` con todos los registros de la co
 
 Proyecto académico desarrollado para fines educativos en INACAP.
 
----
-
-> 🐎 *"El rodeo no es solo deporte, es tradición."*
