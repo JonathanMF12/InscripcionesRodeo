@@ -250,7 +250,3 @@ Genera un archivo `Planilla_Oficial_Rodeo.xlsx` con todos los registros de la co
 ## 📜 Licencia
 
 Proyecto académico desarrollado para fines educativos en INACAP.
-
----
-
-> 🐎 *"El rodeo no es solo deporte, es tradición."*
