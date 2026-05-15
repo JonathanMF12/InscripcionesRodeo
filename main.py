@@ -28,6 +28,15 @@ def crear_documento():
             if club and contacto: break
             print("❌ Club y Contacto son obligatorios.")
 
+        # NUEVO: solicitar email del contacto
+        email = input("Email Contacto (Opcional): ").strip() or "s/i"
+
+        # NUEVO: solicitar serie
+        serie = input("Serie (Obligatorio): ").strip()
+        while not serie:
+            print("❌ Serie es obligatoria.")
+            serie = input("Serie (Obligatorio): ").strip()
+
         criadero = input("Criadero (Opcional): ").strip() or "N/A"
         fono = input("Fono: ")
 
@@ -35,19 +44,34 @@ def crear_documento():
         print("\n--- Ingrese los datos de la Collera (2 Jinetes) ---")
         for i in range(1, 3):
             print(f"\nDatos Jinete {i}:")
+            jinete_nombre = input(f"Nombre Jinete {i}: ")
+            rut = input(f"RUT Jinete {i}: ")
+            caballo = input(f"Nombre Caballo {i}: ")
+            # NUEVO: solicitar código del caballo
+            cod_caballo = input(f"Código Caballo {i} (Opcional, número): ").strip()
+            if cod_caballo:
+                try:
+                    cod_caballo = int(cod_caballo)
+                except ValueError:
+                    print("⚠️ Código inválido, se guardará como None")
+                    cod_caballo = None
+            else:
+                cod_caballo = None
+            
             jinete = {
-                "jinete": input(f"Nombre Jinete {i}: "),
-                "rut": input(f"RUT Jinete {i}: "),
-                "caballo": input(f"Nombre Caballo {i}: "),
-                "club_origen": club
+                "jinete": jinete_nombre,
+                "rut": rut,
+                "caballo": caballo,
+                "club_origen": club,
+                "cod_caballo": cod_caballo   # NUEVO campo
             }
             lista_binomios.append(jinete)
 
         nueva = {
             "club_organizador": club,
-            "contacto": {"nombre": contacto, "fono": fono, "email": "s/i"},
+            "contacto": {"nombre": contacto, "fono": fono, "email": email},  # email ya no es fijo
             "criadero": criadero,
-            "serie": "Libre",
+            "serie": serie,  # ya no es fijo "Libre"
             "binomios": lista_binomios,
             "fecha_registro": datetime.now(),
             "estado": "Pendiente"
