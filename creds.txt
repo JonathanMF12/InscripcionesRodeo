@@ -1,0 +1,3 @@
+MONGODB_URI=mongodb+srv://jonathanmolina18_db_user:vkxfM9KQaBjp1zmy@cluster0.auwexva.mongodb.net/
+DB_NAME=Rodeo2026
+COL_NAME=Inscripciones

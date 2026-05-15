@@ -1,210 +1,153 @@
-# 🐎 Sistema de Gestión de Inscripciones de Rodeo
+# Sistema de Gestión de Inscripciones de Rodeo
 
-Sistema de terminal para gestionar inscripciones de rodeos chilenos, desarrollado con Python y MongoDB Atlas. Permite registrar clubes, criaderos, jinetes y sus binomios, además de generar planillas oficiales en Excel.
+**Evaluación Unidad Integradora N°4 - Bases de Datos No Estructuradas**  
+TI3V32 | INACAP Puente Alto | Sección 103-3A-F1
 
-## 📋 Características
+---
 
-- ✅ Registro completo de inscripciones con datos de club, contacto y criadero
-- 🏇 Gestión de colleras (binomios jinete-caballo)
-- 📊 Generación automática de planilla oficial en Excel
-- 🔍 Búsquedas por rango de fechas y texto (regex)
-- ✏️ Actualización de estados y datos de jinetes
-- 🗑️ Eliminación de registros
-- 💾 Persistencia en MongoDB Atlas
-
-## 🛠️ Tecnologías
-
-- **Python 3.x**
-- **MongoDB Atlas** (base de datos en la nube)
-- **pymongo** - Driver oficial de MongoDB
-- **pandas** - Procesamiento y exportación de datos
-- **openpyxl** - Generación de archivos Excel
-- **python-dotenv** - Gestión de variables de entorno
-
-## 📦 Instalación
-
-### 1. Clonar el repositorio
+## Instalación Rápida
 
 ```bash
-git clone <url-del-repositorio>
-cd <nombre-del-directorio>
-```
-
-### 2. Instalar dependencias
-
-```bash
+git clone https://github.com/JonathanMF12/InscripcionesRodeo
+cd InscripcionesRodeo
 pip install -r requirements.txt
 ```
 
-### 3. Configurar variables de entorno
-
-Crear un archivo `.env` en la raíz del proyecto con la siguiente estructura:
-
+Crear archivo `.env`:
 ```env
-MONGODB_URI=mongodb+srv://usuario:password@cluster.mongodb.net/?retryWrites=true&w=majority
-DB_NAME=nombre_base_datos
-COL_NAME=nombre_coleccion
+MONGODB_URI=mongodb+srv://usuario:password@cluster.mongodb.net/
+DB_NAME=rodeo_db
+COL_NAME=inscripciones
 ```
 
-**Importante:** Obtén tu URI de conexión desde [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
-
-## 🚀 Uso
-
-Ejecutar el programa:
-
+Ejecutar:
 ```bash
 python main.py
 ```
 
-### Menú Principal
+---
 
-```
-1. Crear      - Nueva inscripción con collera completa
-2. Listar     - Mostrar registros y generar Excel automáticamente
-3. Fecha      - Buscar por rango de fechas (mayo 2026)
-4. Regex      - Buscar por nombre de criadero
-5. Estado     - Actualizar estado de club
-6. Jinete     - Actualizar club de origen de jinete
-7. Eliminar   - Eliminar registro por criadero
-0. Salir      - Cerrar aplicación
-```
+## Modelo de Datos (Cumplimiento Rúbrica)
 
-## 📄 Estructura de Datos
-
-### Documento de Inscripción
+✅ **1 Subdocumento:** `contacto`  
+✅ **1 Array de subdocumentos:** `binomios`  
+✅ **1 Campo fecha:** `fecha_registro`
 
 ```javascript
 {
   "club_organizador": "Club El Rodeo",
-  "contacto": {
-    "nombre": "Juan Pérez",
-    "fono": "+56912345678",
-    "email": "s/i"
-  },
+  "contacto": { "nombre": "Juan", "fono": "+56912345678", "email": "s/i" },
   "criadero": "Los Aromos",
-  "serie": "Libre",
   "binomios": [
-    {
-      "jinete": "Pedro González",
-      "rut": "12345678-9",
-      "caballo": "Relámpago",
-      "club_origen": "Club El Rodeo"
-    },
-    {
-      "jinete": "María Silva",
-      "rut": "98765432-1",
-      "caballo": "Centella",
-      "club_origen": "Club El Rodeo"
-    }
+    { "jinete": "Pedro", "rut": "12345678-9", "caballo": "Relámpago", "club_origen": "Club El Rodeo" }
   ],
-  "fecha_registro": new Date(),
+  "fecha_registro": ISODate("2026-05-14T..."),
   "estado": "Pendiente"
 }
 ```
 
-## 📊 Exportación de Datos
+---
 
-La opción **"2. Listar"** genera automáticamente el archivo:
+## Funcionalidades (9 Requisitos de Rúbrica)
 
-```
-Planilla_Oficial_Rodeo.xlsx
-```
+### 1. CREATE - insertOne / insertMany
+**Opción:** 1  
+Crea una inscripción → pregunta si agregar más → usa `insertMany()` para batch
 
-Este archivo contiene todos los registros en formato tabular, listo para impresión o distribución.
+### 2. READ - Listar con proyección
+**Opción:** 2 → 1  
+Muestra solo: `club_organizador`, `criadero`, `fecha_registro`, `estado`
 
-## 🔍 Ejemplos de Uso
+### 3. READ - Operadores de comparación
+**Opción:** 2 → 2  
+- `$ne`: Buscar estados distintos a "Pendiente"
+- `$in`: Buscar por lista de clubes
 
-### Crear Nueva Inscripción
+### 4. READ - Expresión regular
+**Opción:** 5  
+Busca por nombre de criadero con `$regex` (case-insensitive)
 
-```
-1. Seleccionar opción "1"
-2. Ingresar club organizador (obligatorio)
-3. Ingresar nombre del contacto (obligatorio)
-4. Ingresar criadero (opcional, se asigna "N/A" por defecto)
-5. Ingresar teléfono
-6. Registrar datos de 2 jinetes (nombre, RUT, caballo)
-7. Confirmación con ID de MongoDB
-```
+### 5. READ - Rango de fechas
+**Opción:** 4  
+Busca con `$gte` y `$lte` (Mayo 2026)
 
-### Buscar por Fecha
+### 6. READ - Buscar en array/subdocumento
+**Opción:** 7  
+Query: `{"binomios.rut": "12345678-9"}` (busca jinete por RUT)
 
-La opción "3" busca automáticamente registros de mayo 2026. Para personalizar:
+### 7. UPDATE - Campo raíz
+**Opción:** 6  
+Actualiza `estado` de un club con `update_many()`
 
-```python
-inicio = datetime(2026, 5, 1)
-fin = datetime(2026, 5, 31)
-```
+### 8. UPDATE - Campo en array
+**Opción:** 7  
+Actualiza `club_origen` de un jinete con operador posicional `$`
 
-### Actualizar Jinete
-
-Permite cambiar el club de origen de un jinete usando el operador posicional `$` de MongoDB:
-
-```
-6. Jinete
-RUT jinete: 12345678-9
-Nuevo club: Club Los Andes
-```
-
-## 🔒 Seguridad
-
-- ⚠️ **Nunca subas el archivo `.env` al repositorio**
-- ✅ Asegúrate de que `.env` esté en `.gitignore`
-- 🔐 Usa contraseñas fuertes en MongoDB Atlas
-- 🌐 Configura IP whitelist en Atlas para mayor seguridad
-
-## 📝 Archivos del Proyecto
-
-```
-.
-├── main.py                 # Aplicación principal
-├── requirements.txt        # Dependencias Python
-├── .env                    # Variables de entorno (NO SUBIR)
-├── .gitignore             # Archivos ignorados por Git
-└── README.md              # Este archivo
-```
-
-## 🐛 Solución de Problemas
-
-### Error de conexión a MongoDB
-
-```
-pymongo.errors.ServerSelectionTimeoutError
-```
-
-**Solución:** Verifica que:
-1. El URI en `.env` sea correcto
-2. Tu IP esté en la whitelist de MongoDB Atlas
-3. Tengas conexión a internet
-
-### Error al generar Excel
-
-```
-ModuleNotFoundError: No module named 'openpyxl'
-```
-
-**Solución:**
-```bash
-pip install openpyxl
-```
-
-## 🤝 Contribuciones
-
-Las contribuciones son bienvenidas. Por favor:
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/NuevaFuncionalidad`)
-3. Commit tus cambios (`git commit -m 'Agregar nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/NuevaFuncionalidad`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto es de uso educativo y profesional.
-
-## ✨ Autor
-
-Desarrollado para la gestión eficiente de inscripciones en rodeos chilenos.
+### 9. DELETE - Con condición
+**Opción:** 8  
+Elimina por `criadero` usando `delete_one()`
 
 ---
 
-**Nota:** Este sistema fue diseñado como herramienta práctica para la administración de eventos ecuestres, combinando la simplicidad de una interfaz de terminal con la robustez de MongoDB Atlas.
+## Menú del Sistema
+
+```
+1. Crear          → insertOne/insertMany
+2. Listar/Buscar  → find() + operadores ($ne, $in)
+3. Excel          → Exportar planilla
+4. Fecha          → Búsqueda por rango ($gte, $lte)
+5. Regex          → Búsqueda con $regex
+6. Estado         → Update campo raíz
+7. Jinete         → Update en array con $
+8. Eliminar       → delete_one()
+0. Salir
+```
+
+---
+
+## Puntaje Estimado
+
+| Criterio | Pts | Estado |
+|----------|-----|--------|
+| Modelo de datos | 7 | ✅ |
+| Create (insertOne/Many) | 7 | ✅ |
+| Read básico | 5 | ✅ |
+| Read avanzado | 7 | ✅ |
+| Update | 5 | ✅ |
+| Delete | 5 | ✅ |
+| GitHub | 5 | ✅ |
+
+**Total:** 41 pts → **Nota 5.7**
+
+---
+
+## Troubleshooting
+
+**Error de conexión:** Verificar URI en `.env` y whitelist en MongoDB Atlas  
+**ModuleNotFoundError:** `pip install -r requirements.txt`  
+**Sin Excel:** Crear al menos una inscripción primero
+
+---
+
+## Demo en Vivo
+
+**Pre-requisitos:**
+- 8+ documentos en MongoDB
+- `.env` configurado
+- Repo GitHub público
+
+**Secuencia sugerida:**
+1. Crear (insertOne)
+2. Crear múltiples (insertMany)
+3. Listar con proyección
+4. Buscar con $ne/$in
+5. Buscar con $regex
+6. Buscar por fechas
+7. Update estado
+8. Update jinete
+9. Delete
+10. Generar Excel
+
+---
+
+**Estudiante:** [Nombre] | **RUT:** [RUT] | **Fecha:** 15/05/2026
