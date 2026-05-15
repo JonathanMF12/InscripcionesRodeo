@@ -27,7 +27,7 @@ Sistema de consola desarrollado en Python para la gestión de inscripciones de r
 
 ## 📝 Descripción
 
-Este sistema permite gestionar inscripciones de rodeos, almacenando información sobre clubes organizadores, contactos, criaderos y binomios (parejas de jinetes con sus caballos). Implementa un CRUD completo sobre MongoDB con operaciones avanzadas como búsquedas con operadores de comparación, expresiones regulares, rangos de fechas y consultas en subdocumentos.
+Este sistema permite gestionar inscripciones de rodeos, almacenando información sobre clubes organizadores, contactos, criaderos, series y binomios (parejas de jinetes con sus caballos). Implementa un CRUD completo sobre MongoDB con operaciones avanzadas como búsquedas con operadores de comparación, expresiones regulares, rangos de fechas y consultas en subdocumentos.
 
 ---
 
@@ -127,7 +127,7 @@ python main.py
 
 ```
 ╔════════════════════════════════════════╗
-║      SISTEMA DE GESTIÓN DE RODEOS      ║
+║   SISTEMA DE GESTIÓN DE RODEOS 🐎      ║
 ╠════════════════════════════════════════╣
 ║ 1. Crear inscripción                   ║
 ║ 2. Buscar/Consultar                    ║
@@ -146,7 +146,7 @@ python main.py
 ║          MENÚ DE BÚSQUEDAS             ║
 ╠════════════════════════════════════════╣
 ║ 1. Listar todos (proyección)           ║
-║ 2. Operadores comparación ($ne/$in)    ║
+║ 2. Operadores comparación ($ne/$lt)    ║
 ║ 3. Expresión regular ($regex)          ║
 ║ 4. Rango de fechas ($gte/$lte)         ║
 ║ 5. Buscar en subdocumento (contacto)   ║
@@ -164,13 +164,14 @@ Registra una nueva inscripción de rodeo con los siguientes datos:
 
 - **Club organizador** (obligatorio)
 - **Contacto** (nombre, teléfono, email) — *subdocumento*
-- **Criadero** (opcional)
-- **Serie** (por defecto: "Libre")
+- **Criadero** (opcional, por defecto "N/A")
+- **Serie** (obligatorio, ingresado por el usuario)
 - **Binomios** — *array de subdocumentos* con 2 jinetes, cada uno con:
   - Nombre del jinete
   - RUT
   - Nombre del caballo
   - Club de origen
+  - Código del caballo (opcional, numérico)
 - **Fecha de registro** (automática)
 - **Estado** (por defecto: "Pendiente")
 
@@ -181,10 +182,14 @@ Registra una nueva inscripción de rodeo con los siguientes datos:
 | Función | Operador MongoDB | Descripción |
 |---------|-----------------|-------------|
 | Listar todos | `find()` con proyección | Muestra club, criadero, fecha y estado |
-| Operadores de comparación | `$ne`, `$in` | Excluye estado o filtra por lista de clubes |
+| Operadores de comparación | `$ne`, `$lt` | Excluye estado o filtra caballos por código menor a 170000 |
 | Expresión regular | `$regex` | Búsqueda insensible a mayúsculas en criaderos |
 | Rango de fechas | `$gte`, `$lte` | Filtra inscripciones entre dos fechas |
 | Subdocumento | dot notation + `$regex` | Busca contactos por nombre |
+
+#### 🔍 Búsqueda de caballos por código (`$lt`)
+
+Esta consulta permite identificar caballos registrados con código menor a **170000**, lo que indica caballos con más de **20 años de antigüedad** en el registro. Se busca dentro del array de binomios y muestra el nombre del caballo, su código, el jinete y el club organizador.
 
 ### 3. Update — Actualizaciones
 
@@ -209,22 +214,24 @@ Genera un archivo `Planilla_Oficial_Rodeo.xlsx` con todos los registros de la co
   "contacto": {
     "nombre": "Juan Pérez",
     "fono": "+56912345678",
-    "email": "s/i"
+    "email": "juan.perez@email.com"
   },
   "criadero": "Criadero El Volcán",
-  "serie": "Libre",
+  "serie": "Novicios",
   "binomios": [
     {
       "jinete": "Pedro Rojas",
       "rut": "12.345.678-9",
       "caballo": "Relámpago",
-      "club_origen": "Club de Rodeo Los Andes"
+      "club_origen": "Club de Rodeo Los Andes",
+      "cod_caballo": 150245
     },
     {
       "jinete": "Luis Torres",
       "rut": "9.876.543-2",
       "caballo": "Trueno",
-      "club_origen": "Club de Rodeo Los Andes"
+      "club_origen": "Club de Rodeo Los Andes",
+      "cod_caballo": 182300
     }
   ],
   "fecha_registro": ISODate("2026-05-15T18:00:00Z"),
@@ -250,3 +257,7 @@ Genera un archivo `Planilla_Oficial_Rodeo.xlsx` con todos los registros de la co
 ## 📜 Licencia
 
 Proyecto académico desarrollado para fines educativos en INACAP.
+
+---
+
+> 🐎 *"El rodeo no es solo deporte, es tradición."*
