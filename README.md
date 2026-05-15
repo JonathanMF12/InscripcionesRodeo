@@ -6,22 +6,22 @@ Sistema de consola desarrollado en Python para la gestión de inscripciones de r
 
 ## 📋 Tabla de Contenidos
 
-- [Descripción](#descripción)
-- [Tecnologías Utilizadas](#tecnologías-utilizadas)
-- [Requisitos Previos](#requisitos-previos)
-- [Instalación](#instalación)
-- [Configuración](#configuración)
-- [Uso](#uso)
+- [Descripción](#-descripción)
+- [Tecnologías Utilizadas](#️-tecnologías-utilizadas)
+- [Requisitos Previos](#️-requisitos-previos)
+- [Instalación](#-instalación)
+- [Configuración](#-configuración)
+- [Uso](#️-uso)
   - [Menú Principal](#menú-principal)
   - [Menú de Búsquedas](#menú-de-búsquedas)
-- [Funcionalidades](#funcionalidades)
-  - [Create](#1-create---crear-inscripción)
-  - [Read](#2-read---consultas-y-búsquedas)
-  - [Update](#3-update---actualizaciones)
-  - [Delete](#4-delete---eliminación)
+- [Funcionalidades](#-funcionalidades)
+  - [Create](#1-create--crear-inscripción)
+  - [Read](#2-read--consultas-y-búsquedas)
+  - [Update](#3-update--actualizaciones)
+  - [Delete](#4-delete--eliminación)
   - [Exportar a Excel](#5-exportar-a-excel)
-- [Estructura del Documento](#estructura-del-documento)
-- [Autores](#autores)
+- [Estructura del Documento](#-estructura-del-documento)
+- [Autores](#-autores)
 
 ---
 
@@ -236,8 +236,8 @@ Genera un archivo `Planilla_Oficial_Rodeo.xlsx` con todos los registros de la co
 
 ## 👥 Autores
 
-- **Integrante 1** — [GitHub](https://github.com/JonathanMF12)
-- **Integrante 2** — [GitHub](https://github.com/ketudev)
+- **JonathanMF12** — [GitHub](https://github.com/JonathanMF12)
+- **ketudev** — [GitHub](https://github.com/ketudev)
 
 **Docente:** Michael Arjel Mayerovich  
 **Asignatura:** TI3V32 — Bases de Datos No Estructuradas  
@@ -251,3 +251,6 @@ Genera un archivo `Planilla_Oficial_Rodeo.xlsx` con todos los registros de la co
 
 Proyecto académico desarrollado para fines educativos en INACAP.
 
+---
+
+> 🐎 *"El rodeo no es solo deporte, es tradición."*
