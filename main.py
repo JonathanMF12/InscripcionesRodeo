@@ -124,7 +124,7 @@ def buscar_avanzada_operadores():
     print("║     BÚSQUEDA CON OPERADORES ($ne/$lt)  ║")
     print("╚════════════════════════════════════════╝\n")
     print("1. Buscar por estado distinto ($ne)")
-    print("2. Buscar caballos con código < 170000 (más de 20 años) ($lt)")
+    print("2. Buscar caballos con código < 140000 (más de 20 años) ($lt)")
     print("0. Volver\n")
     
     op = input("Opción: ").strip()
@@ -135,28 +135,76 @@ def buscar_avanzada_operadores():
             print(f"📍 Club: {doc['club_organizador']} | Estado: {doc['estado']}")
             
     elif op == "2":
-        print("\n--- Caballos con código < 170000 (más de 20 años) ---")
-        resultados = coleccion.find({"binomios.cod_caballo": {"$lt": 170000}})
+        print("\n--- Caballos con código < 140000 (más de 20 años) ---")
+        resultados = coleccion.find({"binomios.cod_caballo": {"$lt": 140000}})
         
         encontrados = False
         for doc in resultados:
             for binomio in doc.get("binomios", []):
-                if binomio.get("cod_caballo") and binomio["cod_caballo"] < 170000:
+                if binomio.get("cod_caballo") and binomio["cod_caballo"] < 140000:
                     print(f"📍 Caballo: {binomio['caballo']} | Código: {binomio['cod_caballo']} | Jinete: {binomio['jinete']} | Club: {doc['club_organizador']}")
                     encontrados = True
         
         if not encontrados:
-            print("❌ No se encontraron caballos con código menor a 170000.")
+            print("❌ No se encontraron caballos con código menor a 140000.")
 
 def buscar_por_nombre_regex():
-    """Búsqueda con expresión regular"""
+    """Búsqueda con expresión regular en múltiples campos"""
     print("\n╔════════════════════════════════════════╗")
-    print("║      BÚSQUEDA CON REGEX (criadero)     ║")
+    print("║   BÚSQUEDA CON REGEX (multi-campo)     ║")
     print("╚════════════════════════════════════════╝\n")
     
-    texto = input("Texto a buscar en Criadero: ").strip()
-    for doc in coleccion.find({"criadero": {"$regex": texto, "$options": "i"}}):
-        print(f"📍 Resultado: {doc['criadero']}")
+    print("Buscar en:")
+    print("1. Criadero")
+    print("2. Nombre del jinete")
+    print("3. Nombre del caballo")
+    print("4. Todos los campos anteriores")
+    print("0. Volver\n")
+    
+    op = input("Opción: ").strip()
+    
+    if op == "0":
+        return
+    
+    texto = input("Texto a buscar: ").strip()
+    
+    if op == "1":
+        query = {"criadero": {"$regex": texto, "$options": "i"}}
+        print(f"\n🔍 Buscando criaderos que contengan '{texto}'...\n")
+        for doc in coleccion.find(query):
+            print(f"📍 Criadero: {doc['criadero']} | Club: {doc['club_organizador']} | Serie: {doc['serie']}")
+            
+    elif op == "2":
+        query = {"binomios.jinete": {"$regex": texto, "$options": "i"}}
+        print(f"\n🔍 Buscando jinetes que contengan '{texto}'...\n")
+        for doc in coleccion.find(query):
+            for binomio in doc.get("binomios", []):
+                if texto.lower() in binomio.get("jinete", "").lower():
+                    print(f"📍 Jinete: {binomio['jinete']} | RUT: {binomio['rut']} | Caballo: {binomio['caballo']} | Club: {doc['club_organizador']}")
+                    
+    elif op == "3":
+        query = {"binomios.caballo": {"$regex": texto, "$options": "i"}}
+        print(f"\n🔍 Buscando caballos que contengan '{texto}'...\n")
+        for doc in coleccion.find(query):
+            for binomio in doc.get("binomios", []):
+                if texto.lower() in binomio.get("caballo", "").lower():
+                    print(f"📍 Caballo: {binomio['caballo']} | Código: {binomio.get('cod_caballo', 'N/A')} | Jinete: {binomio['jinete']} | Club: {doc['club_organizador']}")
+                    
+    elif op == "4":
+        query = {
+            "$or": [
+                {"criadero": {"$regex": texto, "$options": "i"}},
+                {"binomios.jinete": {"$regex": texto, "$options": "i"}},
+                {"binomios.caballo": {"$regex": texto, "$options": "i"}}
+            ]
+        }
+        print(f"\n🔍 Buscando '{texto}' en criadero, jinete o caballo...\n")
+        for doc in coleccion.find(query):
+            print(f"\n📍 Club: {doc['club_organizador']} | Criadero: {doc['criadero']} | Serie: {doc['serie']}")
+            for binomio in doc.get("binomios", []):
+                print(f"   🐎 Jinete: {binomio['jinete']} | Caballo: {binomio['caballo']} | Código: {binomio.get('cod_caballo', 'N/A')}")
+    else:
+        print("❌ Opción inválida.")
 
 def buscar_por_rango_fecha():
     """Búsqueda por rango de fechas con $gte y $lte"""
