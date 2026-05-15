@@ -1,12 +1,16 @@
 import pymongo
 import pandas as pd
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+
 
 # --- CONEXIÓN CLUSTER ATLAS ---
-uri = "mongodb+srv://jonathanmolina18_db_user:vkxfM9KQaBjp1zmy@cluster0.auwexva.mongodb.net/"
+load_dotenv()
+uri = os.getenv("MONGODB_URI")
 client = pymongo.MongoClient(uri)
-db = client["Rodeo2026"]
-coleccion = db["Inscripciones"]
+db = client[os.getenv("DB_NAME")]
+coleccion = db[os.getenv("COL_NAME")]
 
 # --- FUNCIONES ---
 
