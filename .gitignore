@@ -1,4 +1,3 @@
 .env
 ./env
-Planilla_Oficial_Rodeo.xlsx
-/Planilla_Oficial_Rodeo.xlsx
+*.xlsx

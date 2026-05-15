@@ -75,7 +75,6 @@ python main.py
 
 ```javascript
 {
-  "_id": ObjectId("..."),
   "club_organizador": "Club El Rodeo",
   "contacto": {
     "nombre": "Juan Pérez",
@@ -98,7 +97,7 @@ python main.py
       "club_origen": "Club El Rodeo"
     }
   ],
-  "fecha_registro": ISODate("2026-05-14T..."),
+  "fecha_registro": new Date(),
   "estado": "Pendiente"
 }
 ```
