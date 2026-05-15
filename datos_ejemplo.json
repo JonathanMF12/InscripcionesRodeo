@@ -1,0 +1,226 @@
+db.Inscripciones.insertMany([
+  {
+    "club_organizador": "Club de Rodeo Los Andes",
+    "contacto": {
+      "nombre": "Juan Pérez",
+      "fono": "+56912345678",
+      "email": "juan.perez@losandes.cl"
+    },
+    "criadero": "Criadero El Volcán",
+    "serie": "Novicios",
+    "binomios": [
+      {
+        "jinete": "Pedro Rojas",
+        "rut": "12.345.678-9",
+        "caballo": "Relámpago",
+        "club_origen": "Club de Rodeo Los Andes",
+        "cod_caballo": 150245
+      },
+      {
+        "jinete": "Luis Torres",
+        "rut": "9.876.543-2",
+        "caballo": "Trueno",
+        "club_origen": "Club de Rodeo Los Andes",
+        "cod_caballo": 182300
+      }
+    ],
+    "fecha_registro": ISODate("2026-05-10T14:30:00Z"),
+    "estado": "Pendiente"
+  },
+  {
+    "club_organizador": "Club de Rodeo Santa Rosa",
+    "contacto": {
+      "nombre": "María González",
+      "fono": "+56998765432",
+      "email": "maria.gonzalez@santarosa.cl"
+    },
+    "criadero": "Criadero La Estrella",
+    "serie": "Libre",
+    "binomios": [
+      {
+        "jinete": "Carlos Díaz",
+        "rut": "15.678.901-2",
+        "caballo": "Rayo",
+        "club_origen": "Club de Rodeo Santa Rosa",
+        "cod_caballo": 145600
+      },
+      {
+        "jinete": "Ana Silva",
+        "rut": "11.222.333-4",
+        "caballo": "Centella",
+        "club_origen": "Club de Rodeo Santa Rosa",
+        "cod_caballo": 168900
+      }
+    ],
+    "fecha_registro": ISODate("2026-05-12T09:15:00Z"),
+    "estado": "Aprobado"
+  },
+  {
+    "club_organizador": "Club de Rodeo El Monte",
+    "contacto": {
+      "nombre": "Roberto Fuentes",
+      "fono": "+56955554444",
+      "email": "roberto.fuentes@elmonte.cl"
+    },
+    "criadero": "Criadero Las Brisas",
+    "serie": "Campeonato",
+    "binomios": [
+      {
+        "jinete": "Diego Herrera",
+        "rut": "18.333.444-5",
+        "caballo": "Huracán",
+        "club_origen": "Club de Rodeo El Monte",
+        "cod_caballo": 142100
+      },
+      {
+        "jinete": "Fernanda López",
+        "rut": "16.777.888-9",
+        "caballo": "Tormenta",
+        "club_origen": "Club de Rodeo El Monte",
+        "cod_caballo": 195400
+      }
+    ],
+    "fecha_registro": ISODate("2026-05-14T16:45:00Z"),
+    "estado": "Pendiente"
+  },
+  {
+    "club_organizador": "Club de Rodeo Los Andes",
+    "contacto": {
+      "nombre": "Patricia Soto",
+      "fono": "+56911112222",
+      "email": "patricia.soto@losandes.cl"
+    },
+    "criadero": "Criadero El Volcán",
+    "serie": "Libre",
+    "binomios": [
+      {
+        "jinete": "Miguel Ángel Ruiz",
+        "rut": "13.444.555-6",
+        "caballo": "Fuego",
+        "club_origen": "Club de Rodeo Los Andes",
+        "cod_caballo": 138700
+      },
+      {
+        "jinete": "Catalina Morales",
+        "rut": "17.888.999-0",
+        "caballo": "Rayo de Sol",
+        "club_origen": "Club de Rodeo Los Andes",
+        "cod_caballo": 201500
+      }
+    ],
+    "fecha_registro": ISODate("2026-05-15T10:20:00Z"),
+    "estado": "Pendiente"
+  },
+  {
+    "club_organizador": "Club de Rodeo San José",
+    "contacto": {
+      "nombre": "Andrea Valenzuela",
+      "fono": "+56933334444",
+      "email": "andrea.valenzuela@sanjose.cl"
+    },
+    "criadero": "Criadero Los Pinos",
+    "serie": "Novicios",
+    "binomios": [
+      {
+        "jinete": "Javier Castillo",
+        "rut": "14.555.666-7",
+        "caballo": "Relámpago Negro",
+        "club_origen": "Club de Rodeo San José",
+        "cod_caballo": 155300
+      },
+      {
+        "jinete": "Daniela Reyes",
+        "rut": "19.000.111-2",
+        "caballo": "Estrella",
+        "club_origen": "Club de Rodeo San José",
+        "cod_caballo": 178600
+      }
+    ],
+    "fecha_registro": ISODate("2026-05-08T11:00:00Z"),
+    "estado": "Rechazado"
+  },
+  {
+    "club_organizador": "Club de Rodeo El Llano",
+    "contacto": {
+      "nombre": "Francisco Muñoz",
+      "fono": "+56977778888",
+      "email": "francisco.munoz@elllano.cl"
+    },
+    "criadero": "Criadero La Esperanza",
+    "serie": "Campeonato",
+    "binomios": [
+      {
+        "jinete": "Rodrigo Araya",
+        "rut": "10.111.222-3",
+        "caballo": "Viento",
+        "club_origen": "Club de Rodeo El Llano",
+        "cod_caballo": 162400
+      },
+      {
+        "jinete": "Paulina Contreras",
+        "rut": "12.666.777-8",
+        "caballo": "Nube",
+        "club_origen": "Club de Rodeo El Llano",
+        "cod_caballo": 189200
+      }
+    ],
+    "fecha_registro": ISODate("2026-05-13T08:30:00Z"),
+    "estado": "Aprobado"
+  },
+  {
+    "club_organizador": "Club de Rodeo Santa Rosa",
+    "contacto": {
+      "nombre": "Camila Rojas",
+      "fono": "+56944445555",
+      "email": "camila.rojas@santarosa.cl"
+    },
+    "criadero": "Criadero El Alba",
+    "serie": "Libre",
+    "binomios": [
+      {
+        "jinete": "Sebastián Vega",
+        "rut": "20.333.444-5",
+        "caballo": "Rayo Veloz",
+        "club_origen": "Club de Rodeo Santa Rosa",
+        "cod_caballo": 147800
+      },
+      {
+        "jinete": "Valentina Paredes",
+        "rut": "15.999.000-1",
+        "caballo": "Trueno Blanco",
+        "club_origen": "Club de Rodeo Santa Rosa",
+        "cod_caballo": 173100
+      }
+    ],
+    "fecha_registro": ISODate("2026-05-11T15:10:00Z"),
+    "estado": "Pendiente"
+  },
+  {
+    "club_organizador": "Club de Rodeo Los Andes",
+    "contacto": {
+      "nombre": "Juan Pérez",
+      "fono": "+56912345678",
+      "email": "juan.perez@losandes.cl"
+    },
+    "criadero": "Criadero Las Vizcachas",
+    "serie": "Novicios",
+    "binomios": [
+      {
+        "jinete": "Matías Flores",
+        "rut": "18.222.333-4",
+        "caballo": "Flecha",
+        "club_origen": "Club de Rodeo Los Andes",
+        "cod_caballo": 159600
+      },
+      {
+        "jinete": "Javiera Martínez",
+        "rut": "11.444.555-6",
+        "caballo": "Rayo de Luna",
+        "club_origen": "Club de Rodeo Los Andes",
+        "cod_caballo": 191800
+      }
+    ],
+    "fecha_registro": ISODate("2026-05-09T13:00:00Z"),
+    "estado": "Aprobado"
+  }
+])
